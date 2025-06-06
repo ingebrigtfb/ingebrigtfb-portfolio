@@ -7,7 +7,7 @@ export default function HeroSection() {
   const t = useTranslations('hero')
 
   return (
-    <section id="hero" className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center py-8 lg:pt-8 relative overflow-hidden">
+    <section id="hero" className="hero-height bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center py-8 lg:pt-8 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
         {/* Mobile Image - Top */}
         <div className="lg:hidden mb-12 flex justify-center">

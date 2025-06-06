@@ -10,6 +10,11 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const t = useTranslations('nav')
 
+  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'work', 'services', 'contact']
@@ -53,7 +58,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="#hero" className="group">
+            <a href="#hero" className="group" onClick={handleHomeClick}>
               <div className="text-xl lg:text-2xl font-bold text-white group-hover:text-teal-400 transition-colors duration-300">
                 Ingebrigt <span className="text-teal-400 group-hover:text-white">Furnes Bøe</span>
               </div>
@@ -69,6 +74,7 @@ export default function Navigation() {
                 <a
                   key={item.key}
                   href={item.href}
+                  onClick={item.key === 'home' ? handleHomeClick : undefined}
                   className={`relative py-2 px-1 text-sm font-medium transition-all duration-300 group ${
                     isActive 
                       ? 'text-teal-400' 
@@ -139,7 +145,12 @@ export default function Navigation() {
                           ? 'text-teal-400 bg-teal-500/10 border border-teal-500/20' 
                           : 'text-gray-300 hover:text-white hover:bg-white/5'
                       }`}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => {
+                        if (item.key === 'home') {
+                          handleHomeClick(e)
+                        }
+                        setIsOpen(false)
+                      }}
                     >
                       {t(item.key)}
                     </a>

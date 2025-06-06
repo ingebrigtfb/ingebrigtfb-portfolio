@@ -98,13 +98,13 @@ export default function ContactSection() {
           error: result.error || 'Failed to send message'
         })
       }
-    } catch (error) {
-              setStatus({
+          } catch {
+        setStatus({
           loading: false,
           success: false,
           error: t('form.error.network')
         })
-    }
+      }
   }
 
   return (

@@ -9,7 +9,7 @@ import ContactSection from '../../components/sections/ContactSection'
 import Footer from '../../components/sections/Footer'
 
 export default function HomePage() {
-  const [activeSection, setActiveSection] = useState('hero')
+  const [, setActiveSection] = useState('hero')
 
   useEffect(() => {
     const handleScroll = () => {

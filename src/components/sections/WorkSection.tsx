@@ -9,7 +9,7 @@ import ProjectsModal from '@/components/ProjectsModal'
 
 export default function WorkSection() {
   const t = useTranslations('work')
-  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([])
+  const [, setFeaturedProjects] = useState<Project[]>([])
   const [allProjects, setAllProjects] = useState<Project[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -40,7 +40,7 @@ export default function WorkSection() {
     if (project.image?.asset) {
       // For Sanity images with asset reference
       if (typeof project.image.asset === 'object' && 'url' in project.image.asset) {
-        return (project.image.asset as any).url || '/api/placeholder/400/300'
+        return (project.image.asset as { url?: string }).url || '/api/placeholder/400/300'
       }
       // For legacy/fallback handling
       if (typeof project.image.asset === 'object' && '_ref' in project.image.asset) {

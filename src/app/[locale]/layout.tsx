@@ -10,8 +10,8 @@ import "../globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Ingebrigt Furnes Bøe - Creative Developer",
-  description: "Full-stack developer creating exceptional digital experiences with modern technologies.",
+  title: "Ingebrigt Furnes Bøe - Developer",
+  description: "Developer creating exceptional digital experiences with modern technologies.",
 }
 
 export default async function LocaleLayout({

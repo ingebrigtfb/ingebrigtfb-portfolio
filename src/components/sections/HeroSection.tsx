@@ -7,16 +7,16 @@ export default function HeroSection() {
   const t = useTranslations('hero')
 
   return (
-    <section id="hero" className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center pt-8 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+    <section id="hero" className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center py-8 lg:pt-8 relative overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Mobile Image - Top */}
-        <div className="lg:hidden mb-8 flex justify-center">
-          <div className="relative w-48 h-60 rounded-3xl overflow-hidden shadow-2xl animate-fade-in">
+        <div className="lg:hidden mb-12 flex justify-center">
+          <div className="relative w-40 h-52 sm:w-48 sm:h-60 rounded-3xl overflow-hidden shadow-2xl border-2 border-white/10 animate-fade-in">
             <Image
               src="/ingebrigt3.png"
               alt="Ingebrigt Furnes Bøe"
               fill
-              sizes="(max-width: 1024px) 192px, 320px"
+              sizes="(max-width: 640px) 160px, 192px"
               className="object-cover"
               priority
             />
@@ -27,34 +27,34 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="text-center lg:text-left">
-            <div className="mb-8">
-              <p className="text-teal-400 text-lg md:text-xl mb-4 animate-fade-in">
+            <div className="mb-6 lg:mb-8">
+              <p className="text-teal-400 text-base sm:text-lg md:text-xl mb-3 sm:mb-4 animate-fade-in">
                 {t('greeting')}
               </p>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-white mb-6 animate-slide-up">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-white mb-4 sm:mb-6 animate-slide-up leading-tight">
                 <span className="font-bold bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">
                   {t('name')}
                 </span>
               </h1>
-              <h2 className="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-8 animate-slide-up-delay">
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 mb-6 sm:mb-8 animate-slide-up-delay">
                 {t('title')}
               </h2>
             </div>
             
-            <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto lg:mx-0 animate-fade-in-delay">
+            <p className="text-gray-400 text-base sm:text-lg md:text-xl leading-relaxed mb-8 sm:mb-10 lg:mb-12 max-w-xl lg:max-w-2xl mx-auto lg:mx-0 animate-fade-in-delay px-2 sm:px-0">
               {t('description')}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center animate-fade-in-delay-2">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start items-center animate-fade-in-delay-2 px-4 sm:px-0">
               <a 
                 href="#contact"
-                className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-black font-semibold py-4 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-teal-500/25 transform hover:scale-105"
+                className="w-full sm:w-auto bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-black font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-teal-500/25 transform hover:scale-105 text-center"
               >
                 {t('getInTouch')}
               </a>
               <a 
                 href="#work"
-                className="border border-teal-500 text-teal-400 hover:bg-teal-500 hover:text-black font-semibold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+                className="w-full sm:w-auto border border-teal-500 text-teal-400 hover:bg-teal-500 hover:text-black font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-full transition-all duration-300 transform hover:scale-105 text-center"
               >
                 {t('viewWork')}
               </a>

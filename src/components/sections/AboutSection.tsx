@@ -23,11 +23,11 @@ export default function AboutSection() {
               <div className="text-gray-300 text-sm md:text-base">{t('experience')}</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center hover:border-emerald-500/50 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="text-3xl md:text-4xl font-bold text-emerald-400 mb-2">25+</div>
+              <div className="text-3xl md:text-4xl font-bold text-emerald-400 mb-2">15+</div>
               <div className="text-gray-300 text-sm md:text-base">{t('projects')}</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center hover:border-cyan-500/50 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2">10+</div>
+              <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2">5+</div>
               <div className="text-gray-300 text-sm md:text-base">{t('clients')}</div>
             </div>
             <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105">

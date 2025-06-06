@@ -1,0 +1,90 @@
+{
+  "nav": {
+    "home": "Hjem",
+    "about": "Om meg",
+    "work": "Arbeid",
+    "services": "Tjenester",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "greeting": "Hei, jeg er",
+    "name": "Ingebrigt",
+    "title": "Web/App Utvikler",
+    "description": "En lidenskapelig utvikler med mål om å skape digtale løsninger som gjør en forskjell.",
+    "getInTouch": "Ta Kontakt",
+    "viewWork": "Se Mitt Arbeid"
+  },
+  "about": {
+    "title": "Om",
+    "subtitle": "Meg",
+    "description1": "Hei, jeg er Ingebrigt, en frontend-utvikler og medgründer av Nordcode AS. Jeg studerte frontend-utvikling på Noroff Fagskole i Bergen og har erfaring med å bygge moderne webløsninger, hovedsakelig på frontend, men jeg liker også å dykke ned i backend når det trengs.",
+    "description2": "Utenom koding er jeg lidenskapelig opptatt av trening og utholdenhetssport, og jeg elsker å tilbringe tid i naturen. Enten det er løping, svømming eller fotturer, jeg er alltid klar for en utfordring som rydder tankene og får kroppen i bevegelse.",
+    "passionateTitle": "Lidenskapelig",
+    "passionateSubtitle": "utvikler",
+    "technicalTitle": "Teknisk",
+    "technicalSubtitle": "Ekspertise",
+    "experience": "År med Erfaring",
+    "projects": "Fullførte Prosjekter",
+    "clients": "Fornøyde Kunder",
+    "technologies": "Teknologier"
+  },
+  "work": {
+    "title": "Nylig utført",
+    "subtitle": "arbeid",
+    "description": "Mine nyeste prosjekter, der noen er i samarbeid med Nordcode AS.",
+    "viewAll": "Se Alle Prosjekter",
+    "visitWebsite": "Besøk Nettside"
+  },
+  "services": {
+    "title": "Tjenester",
+    "subtitle": "jeg utfører",
+    "description": "Jeg tilbyr omfattende utviklingstjenester for å hjelpe deg med å realisere dine digitale drømer.",
+    "frontend": {
+      "title": "Frontend Utvikling",
+      "description": "Skaper responsive, interaktive brukergrensesnitt med moderne rammeverk og beste praksis."
+    },
+    "backend": {
+      "title": "Backend Utvikling",
+      "description": "Bygger robuste server-side applikasjoner, APIer og databaseløsninger."
+    },
+    "fullstack": {
+      "title": "Full-Stack Løsninger",
+      "description": "Ende-til-ende utvikling fra konsept til deployment og vedlikehold."
+    },
+    "consulting": {
+      "title": "Teknisk Rådgivning",
+      "description": "Strategisk veiledning om teknologivalg, arkitektur og utviklingsprosesser."
+    }
+  },
+  "contact": {
+    "title": "Kom i kontakt",
+    "subtitle": "med meg",
+    "description": "Klar til å starte ditt neste prosjekt? La oss diskutere hvordan vi kan jobbe sammen for å skape noe fantastisk.",
+    "getInTouch": "Ta Kontakt",
+    "email": "E-post",
+    "location": "Lokasjon",
+    "locationValue": "Bergen, Norge",
+    "form": {
+      "name": "Ditt Navn",
+      "email": "Din E-post",
+      "message": "Din Melding",
+      "send": "Send Melding",
+      "sending": "Sender...",
+      "success": "Melding sendt! Jeg kommer tilbake til deg snart.",
+      "error": {
+        "required": "Alle felt er påkrevd",
+        "network": "Nettverksfeil. Vennligst prøv igjen."
+      }
+    }
+  },
+  "footer": {
+    "copyright": "Alle rettigheter reservert.",
+    "madeWith": "Laget med",
+    "and": "og"
+  },
+  "language": {
+    "switch": "Bytt Språk",
+    "english": "English",
+    "norwegian": "Norsk"
+  }
+} 

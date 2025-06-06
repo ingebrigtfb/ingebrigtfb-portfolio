@@ -1,0 +1,37 @@
+{
+  "name": "ingebrigtfb-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@sanity/client": "^7.4.1",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^3.91.0",
+    "@types/nodemailer": "^6.4.17",
+    "next": "15.3.3",
+    "next-intl": "^4.1.0",
+    "next-sanity": "^9.12.0",
+    "nodemailer": "^7.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sanity": "^3.91.0",
+    "styled-components": "^6.1.18"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.3",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
+  }
+}

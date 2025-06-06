@@ -1,0 +1,90 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "work": "Work",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Ingebrigt",
+    "title": "Web/App Developer",
+    "description": "A passionate developer crafting exceptional digital experiences with modern technologies.",
+    "getInTouch": "Get in Touch",
+    "viewWork": "View My Work"
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "Me",
+    "description1": "Hi, I'm Ingebrigt, a frontend developer and co-founder of Nordcode AS. I studied frontend development at Noroff Fagskole in Bergen and have experience building modern web solutions, mostly on the frontend, but I also enjoy diving into backend when needed.",
+    "description2": "Outside of code, I'm passionate about fitness and endurance sports, and I love spending time in nature. Whether it's running, swimming, or hiking, I'm always up for a challenge that clears the mind and gets the body moving.",
+    "passionateTitle": "Passionate",
+    "passionateSubtitle": "Creator",
+    "technicalTitle": "Technical",
+    "technicalSubtitle": "Expertise",
+    "experience": "Years of Experience",
+    "projects": "Projects Completed",
+    "clients": "Happy Clients",
+    "technologies": "Technologies"
+  },
+  "work": {
+    "title": "Recent Work",
+    "subtitle": "Featured",
+    "description": "My latest projects that showcase my expertise in creating exceptional digital experiences, in collaboration with my team at Nordcode AS.",
+    "viewAll": "View All Projects",
+    "visitWebsite": "Visit Website"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "I Do",
+    "description": "I offer comprehensive development services to help bring your digital vision to life.",
+    "frontend": {
+      "title": "Frontend Development",
+      "description": "Creating responsive, interactive user interfaces with modern frameworks and best practices."
+    },
+    "backend": {
+      "title": "Backend Development", 
+      "description": "Building robust server-side applications, APIs, and database solutions."
+    },
+    "fullstack": {
+      "title": "Full-Stack Solutions",
+      "description": "End-to-end development from concept to deployment and maintenance."
+    },
+    "consulting": {
+      "title": "Technical Consulting",
+      "description": "Strategic guidance on technology choices, architecture, and development processes."
+    }
+  },
+  "contact": {
+    "title": "Let's",
+    "subtitle": "Connect",
+    "description": "Ready to start your next project? Let's discuss how we can work together to create something amazing.",
+    "getInTouch": "Get in Touch",
+    "email": "Email",
+    "location": "Location",
+    "locationValue": "Bergen, Norway",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! I'll get back to you soon.",
+      "error": {
+        "required": "All fields are required",
+        "network": "Network error. Please try again."
+      }
+    }
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "madeWith": "Made with",
+    "and": "and"
+  },
+  "language": {
+    "switch": "Switch Language",
+    "english": "English",
+    "norwegian": "Norsk"
+  }
+} 

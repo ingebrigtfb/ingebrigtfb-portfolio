@@ -23,6 +23,7 @@ export interface Project {
   description: string
   technologies: string[]
   website: string
+  github?: string
   image?: {
     asset: {
       _ref: string

@@ -47,6 +47,12 @@ export const projectType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'github',
+      title: 'GitHub Repository URL',
+      type: 'url',
+      description: 'Link to the GitHub repository for this project',
+    }),
+    defineField({
       name: 'image',
       title: 'Project Image',
       type: 'image',

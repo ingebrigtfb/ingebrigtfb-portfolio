@@ -8,6 +8,7 @@ const projectsQuery = (language: string = 'en') => `*[_type == "project" && (!de
   description,
   technologies,
   website,
+  github,
   image {
     asset->{
       _id,
@@ -29,6 +30,7 @@ const featuredProjectsQuery = (language: string = 'en') => `*[_type == "project"
   description,
   technologies,
   website,
+  github,
   image {
     asset->{
       _id,

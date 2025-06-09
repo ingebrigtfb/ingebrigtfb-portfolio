@@ -2,24 +2,28 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Project } from '@/lib/sanity'
 import { getFeaturedProjects, getAllProjects } from '@/lib/sanity-queries'
 import ProjectsModal from '@/components/ProjectsModal'
+import ProjectDetailsModal from '@/components/ProjectDetailsModal'
 
 export default function WorkSection() {
   const t = useTranslations('work')
+  const locale = useLocale()
   const [, setFeaturedProjects] = useState<Project[]>([])
   const [allProjects, setAllProjects] = useState<Project[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchProjects() {
       try {
         const [featured, all] = await Promise.all([
-          getFeaturedProjects(),
-          getAllProjects()
+          getFeaturedProjects(locale),
+          getAllProjects(locale)
         ])
         
         setFeaturedProjects(featured)
@@ -34,7 +38,7 @@ export default function WorkSection() {
     }
 
     fetchProjects()
-  }, [])
+  }, [locale])
 
   const getImageSrc = (project: Project): string => {
     if (project.image?.asset) {
@@ -54,6 +58,16 @@ export default function WorkSection() {
     }
     
     return '/api/placeholder/400/300'
+  }
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project)
+    setIsDetailsModalOpen(true)
+  }
+
+  const handleDetailsModalClose = () => {
+    setIsDetailsModalOpen(false)
+    setSelectedProject(null)
   }
 
   if (loading) {
@@ -95,7 +109,8 @@ export default function WorkSection() {
               {allProjects.slice(0, 4).map((project) => (
                 <div 
                   key={project._id}
-                  className="group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-teal-500/50 transition-all duration-500 hover:transform hover:scale-105"
+                  onClick={() => handleProjectClick(project)}
+                  className="group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-teal-500/50 transition-all duration-500 hover:transform hover:scale-105 cursor-pointer"
                 >
                   <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-emerald-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -139,14 +154,9 @@ export default function WorkSection() {
                   </div>
                   
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
-                    <a 
-                      href={project.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-teal-500 hover:bg-teal-400 text-black font-semibold py-2 px-6 rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                    >
-                      {t('visitWebsite')}
-                    </a>
+                    <div className="bg-teal-500 hover:bg-teal-400 text-black font-semibold py-2 px-6 rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      View Details
+                    </div>
                   </div>
                 </div>
               ))}
@@ -183,6 +193,14 @@ export default function WorkSection() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         projects={allProjects}
+        onProjectClick={handleProjectClick}
+      />
+
+      {/* Project Details Modal */}
+      <ProjectDetailsModal
+        isOpen={isDetailsModalOpen}
+        onClose={handleDetailsModalClose}
+        project={selectedProject}
       />
     </>
   )

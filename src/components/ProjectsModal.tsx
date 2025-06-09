@@ -8,9 +8,10 @@ interface ProjectsModalProps {
   isOpen: boolean
   onClose: () => void
   projects: Project[]
+  onProjectClick?: (project: Project) => void
 }
 
-export default function ProjectsModal({ isOpen, onClose, projects }: ProjectsModalProps) {
+export default function ProjectsModal({ isOpen, onClose, projects, onProjectClick }: ProjectsModalProps) {
   const [filter, setFilter] = useState('All')
   const [filteredProjects, setFilteredProjects] = useState(projects)
 
@@ -109,7 +110,8 @@ export default function ProjectsModal({ isOpen, onClose, projects }: ProjectsMod
             {filteredProjects.map((project) => (
               <div
                 key={project._id}
-                className="group bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:border-teal-500/50 transition-all duration-300 hover:transform hover:scale-105"
+                onClick={() => onProjectClick?.(project)}
+                className="group bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:border-teal-500/50 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer"
               >
                 <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-emerald-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -153,17 +155,12 @@ export default function ProjectsModal({ isOpen, onClose, projects }: ProjectsMod
                       <span className="text-xs text-gray-500">+{project.technologies.length - 3}</span>
                     )}
                   </div>
-                  <a
-                    href={project.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors"
-                  >
-                    Visit Website
+                  <div className="inline-flex items-center text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors">
+                    View Details
                     <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </a>
+                  </div>
                 </div>
               </div>
             ))}

@@ -1,7 +1,7 @@
 import { client, Project } from './sanity'
 
-// GROQ query to fetch all projects
-const projectsQuery = `*[_type == "project"] | order(order asc, _createdAt desc) {
+// GROQ query to fetch all projects with language support
+const projectsQuery = (language: string = 'en') => `*[_type == "project" && (!defined(__i18n_lang) || __i18n_lang == "${language}")] | order(order asc, _createdAt desc) {
   _id,
   title,
   category,
@@ -17,11 +17,12 @@ const projectsQuery = `*[_type == "project"] | order(order asc, _createdAt desc)
   },
   featured,
   nordcode,
-  order
+  order,
+  __i18n_lang
 }`
 
-// GROQ query to fetch only featured projects
-const featuredProjectsQuery = `*[_type == "project" && featured == true] | order(order asc, _createdAt desc) {
+// GROQ query to fetch only featured projects with language support
+const featuredProjectsQuery = (language: string = 'en') => `*[_type == "project" && featured == true && (!defined(__i18n_lang) || __i18n_lang == "${language}")] | order(order asc, _createdAt desc) {
   _id,
   title,
   category,
@@ -37,12 +38,13 @@ const featuredProjectsQuery = `*[_type == "project" && featured == true] | order
   },
   featured,
   nordcode,
-  order
+  order,
+  __i18n_lang
 }`
 
-export async function getAllProjects(): Promise<Project[]> {
+export async function getAllProjects(language: string = 'en'): Promise<Project[]> {
   try {
-    const projects = await client.fetch(projectsQuery)
+    const projects = await client.fetch(projectsQuery(language))
     return projects
   } catch (error) {
     console.error('Error fetching projects:', error)
@@ -50,9 +52,9 @@ export async function getAllProjects(): Promise<Project[]> {
   }
 }
 
-export async function getFeaturedProjects(): Promise<Project[]> {
+export async function getFeaturedProjects(language: string = 'en'): Promise<Project[]> {
   try {
-    const projects = await client.fetch(featuredProjectsQuery)
+    const projects = await client.fetch(featuredProjectsQuery(language))
     return projects
   } catch (error) {
     console.error('Error fetching featured projects:', error)

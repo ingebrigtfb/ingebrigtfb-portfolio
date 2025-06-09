@@ -1,6 +1,8 @@
 // Auto-translation service for Sanity content
 // You can use Google Translate API, DeepL, or other services
 
+import { Project } from './sanity'
+
 interface TranslateOptions {
   text: string
   from: string
@@ -39,7 +41,7 @@ const translations: Record<string, Record<string, string>> = {
 }
 
 // Mock translation function (replace with actual API)
-export async function translateText({ text, from, to }: TranslateOptions): Promise<string> {
+export async function translateText({ text, to }: TranslateOptions): Promise<string> {
   // Check if we have a manual translation
   if (translations[text] && translations[text][to]) {
     return translations[text][to]
@@ -70,7 +72,7 @@ export async function translateText({ text, from, to }: TranslateOptions): Promi
 
 // Auto-translate project content
 export async function autoTranslateProject(
-  project: any, 
+  project: Project, 
   targetLanguage: string
 ): Promise<TranslatedProject> {
   try {
@@ -107,7 +109,7 @@ export async function autoTranslateProject(
 
 // Bulk translate projects
 export async function bulkTranslateProjects(
-  projects: any[], 
+  projects: Project[], 
   targetLanguage: string
 ): Promise<TranslatedProject[]> {
   const translationPromises = projects.map(project => 

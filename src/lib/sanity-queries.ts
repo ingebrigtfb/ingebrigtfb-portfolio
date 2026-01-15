@@ -1,4 +1,4 @@
-import { client, Project } from './sanity'
+import { client, Project, TechnicalExpertise, About } from './sanity'
 
 // GROQ query to fetch all projects with language support
 const projectsQuery = (language: string = 'en') => `*[_type == "project" && (!defined(__i18n_lang) || __i18n_lang == "${language}")] | order(order asc, _createdAt desc) {
@@ -61,5 +61,50 @@ export async function getFeaturedProjects(language: string = 'en'): Promise<Proj
   } catch (error) {
     console.error('Error fetching featured projects:', error)
     return []
+  }
+}
+
+// GROQ query to fetch technical expertise categories
+const technicalExpertiseQuery = `*[_type == "technicalExpertise"] | order(order asc, _createdAt asc) {
+  _id,
+  category,
+  skills,
+  color,
+  order
+}`
+
+export async function getTechnicalExpertise(): Promise<TechnicalExpertise[]> {
+  try {
+    const expertise = await client.fetch(technicalExpertiseQuery)
+    return expertise
+  } catch (error) {
+    console.error('Error fetching technical expertise:', error)
+    return []
+  }
+}
+
+// GROQ query to fetch about section content with language support
+const aboutQuery = (language: string = 'en') => `*[_type == "about" && (!defined(__i18n_lang) || __i18n_lang == "${language}")][0] {
+  _id,
+  passionateTitle,
+  passionateSubtitle,
+  description1,
+  description2,
+  statistics | order(order asc) {
+    value,
+    label,
+    color,
+    order
+  },
+  __i18n_lang
+}`
+
+export async function getAboutContent(language: string = 'en'): Promise<About | null> {
+  try {
+    const about = await client.fetch(aboutQuery(language))
+    return about
+  } catch (error) {
+    console.error('Error fetching about content:', error)
+    return null
   }
 } 

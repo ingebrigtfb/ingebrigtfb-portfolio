@@ -33,4 +33,29 @@ export interface Project {
   featured: boolean
   nordcode: boolean
   order?: number
+}
+
+// Technical Expertise type interface
+export interface TechnicalExpertise {
+  _id: string
+  category: 'frontend' | 'backend' | 'tools'
+  skills: string[]
+  color: 'teal' | 'emerald' | 'cyan'
+  order?: number
+}
+
+// About section type interface
+export interface About {
+  _id: string
+  passionateTitle: string
+  passionateSubtitle: string
+  description1: string
+  description2: string
+  statistics: Array<{
+    value: string
+    label: string
+    color: 'teal' | 'emerald' | 'cyan' | 'purple'
+    order?: number
+  }>
+  __i18n_lang?: string
 } 

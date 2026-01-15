@@ -26,6 +26,9 @@ const translations: Record<string, Record<string, string>> = {
   'Mobile App': {
     no: 'Mobilapp'
   },
+  'Software': {
+    no: 'Programvare'
+  },
   'E-commerce': {
     no: 'E-handel'
   },

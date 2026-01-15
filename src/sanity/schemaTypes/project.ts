@@ -19,6 +19,7 @@ export const projectType = defineType({
         list: [
           { title: 'Web Development', value: 'Web Development' },
           { title: 'Mobile App', value: 'Mobile App' },
+          { title: 'Software', value: 'Software' },
           { title: 'Web Design', value: 'Web Design' },
           { title: 'Data Visualization', value: 'Data Visualization' },
           { title: 'E-commerce', value: 'E-commerce' },

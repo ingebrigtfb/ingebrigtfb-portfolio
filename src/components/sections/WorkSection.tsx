@@ -1,12 +1,18 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { useState, useEffect, useRef } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Project } from '@/lib/sanity'
 import { getFeaturedProjects, getAllProjects } from '@/lib/sanity-queries'
 import ProjectsModal from '@/components/ProjectsModal'
 import ProjectDetailsModal from '@/components/ProjectDetailsModal'
+import ProjectStrip from '@/components/ui/ProjectStrip'
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 export default function WorkSection() {
   const t = useTranslations('work')
@@ -18,14 +24,17 @@ export default function WorkSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
 
+  const sectionRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     async function fetchProjects() {
       try {
         const [featured, all] = await Promise.all([
           getFeaturedProjects(locale),
-          getAllProjects(locale)
+          getAllProjects(locale),
         ])
-        
+
         setFeaturedProjects(featured)
         setAllProjects(all)
       } catch (error) {
@@ -40,25 +49,32 @@ export default function WorkSection() {
     fetchProjects()
   }, [locale])
 
-  const getImageSrc = (project: Project): string => {
-    if (project.image?.asset) {
-      // For Sanity images with asset reference
-      if (typeof project.image.asset === 'object' && 'url' in project.image.asset) {
-        return (project.image.asset as { url?: string }).url || '/api/placeholder/400/300'
-      }
-      // For legacy/fallback handling
-      if (typeof project.image.asset === 'object' && '_ref' in project.image.asset) {
-        return `/api/placeholder/400/300` // Fallback for asset references
-      }
-    }
-    
-    // Fallback for hardcoded projects or missing images
-    if (project.title === 'Olav Solberg AS') {
-      return '/olavsolberg.png'
-    }
-    
-    return '/api/placeholder/400/300'
-  }
+  useEffect(() => {
+    if (loading) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion || !headerRef.current) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [loading])
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project)
@@ -72,120 +88,91 @@ export default function WorkSection() {
 
   if (loading) {
     return (
-      <section id="work" className="py-20 bg-black">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto text-center">
-            <div className="animate-pulse">
-              <div className="h-8 bg-white/10 rounded w-64 mx-auto mb-4"></div>
-              <div className="h-4 bg-white/10 rounded w-96 mx-auto mb-8"></div>
-              <div className="grid md:grid-cols-2 gap-8">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="bg-white/5 rounded-2xl p-6 h-64"></div>
-                ))}
-              </div>
+      <section id="work" className="py-24 lg:py-32 bg-surface">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            {/* Loading skeleton */}
+            <div className="text-center mb-16">
+              <div className="h-10 bg-gray-100 rounded w-48 mx-auto mb-4 animate-pulse" />
+              <div className="h-4 bg-gray-100 rounded w-96 mx-auto animate-pulse" />
             </div>
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="py-12 border-b border-gray-100">
+                <div className="grid lg:grid-cols-12 gap-8 items-center">
+                  <div className={`lg:col-span-7 ${i % 2 === 0 ? '' : 'lg:order-2'}`}>
+                    <div className="aspect-[16/10] bg-gray-100 rounded-xl animate-pulse" />
+                  </div>
+                  <div className={`lg:col-span-5 space-y-4 ${i % 2 === 0 ? '' : 'lg:order-1'}`}>
+                    <div className="h-4 bg-gray-100 rounded w-24 animate-pulse" />
+                    <div className="h-8 bg-gray-100 rounded w-3/4 animate-pulse" />
+                    <div className="h-20 bg-gray-100 rounded animate-pulse" />
+                    <div className="flex gap-2">
+                      {Array.from({ length: 3 }).map((_, j) => (
+                        <div key={j} className="h-6 w-16 bg-gray-100 rounded-full animate-pulse" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
     )
   }
 
+  // Show first 4 projects as strips
+  const displayedProjects = allProjects.slice(0, 4)
+
   return (
     <>
-      <section id="work" className="py-20 bg-black">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
-                {t('title')} <span className="font-bold text-teal-400">{t('subtitle')}</span>
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-teal-400 to-emerald-400 mx-auto rounded-full"></div>
-              <p className="text-gray-400 mt-6 max-w-2xl mx-auto">
-                {t('description')}
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              {allProjects.slice(0, 4).map((project) => (
-                <div 
-                  key={project._id}
-                  onClick={() => handleProjectClick(project)}
-                  className="group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-teal-500/50 transition-all duration-500 hover:transform hover:scale-105 cursor-pointer"
-                >
-                  <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-emerald-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    {getImageSrc(project) !== '/api/placeholder/400/300' ? (
-                      <Image
-                        src={getImageSrc(project)}
-                        alt={project.image?.alt || project.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-6xl opacity-20">💻</div>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="p-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <span className="text-teal-400 text-sm font-medium">{project.category}</span>
-                      {project.nordcode && (
-                        <span className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg border border-white/20">
-                          Nordcode
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-teal-400 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-400 mb-4 leading-relaxed">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map(tech => (
-                        <span key={tech} className="text-xs bg-white/10 text-gray-300 px-3 py-1 rounded-full">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8">
-                    <div className="bg-teal-500 hover:bg-teal-400 text-black font-semibold py-2 px-6 rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      View Details
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* View All Projects Button */}
-            {allProjects.length > 0 && (
-              <div className="text-center">
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="group inline-flex items-center gap-2 bg-white/10 hover:bg-teal-500/20 text-white border border-white/20 hover:border-teal-500/50 px-8 py-3 rounded-full transition-all duration-300"
-                >
-                  <span>{t('viewAll')}</span>
-                  <svg 
-                    className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                  <span className="bg-teal-500 text-black px-2 py-1 rounded-full text-xs font-semibold">
-                    {allProjects.length}
-                  </span>
-                </button>
-              </div>
-            )}
-          </div>
+      <section ref={sectionRef} id="work" className="py-24 lg:py-32 bg-surface">
+        {/* Section Header */}
+        <div ref={headerRef} className="text-center mb-12 lg:mb-16 px-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            {t('title')} <span className="text-blue-600">{t('subtitle')}</span>
+          </h2>
+          <div className="w-16 h-1 bg-blue-600 mx-auto rounded-full mb-6" />
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            {t('description')}
+          </p>
         </div>
+
+        {/* Project Strips */}
+        <div className="border-t border-gray-100">
+          {displayedProjects.map((project, index) => (
+            <ProjectStrip
+              key={project._id}
+              project={project}
+              index={index}
+              onProjectClick={handleProjectClick}
+              viewDetailsText="View Details"
+            />
+          ))}
+        </div>
+
+        {/* View All Projects Button */}
+        {allProjects.length > 4 && (
+          <div className="text-center mt-16 px-6">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="group inline-flex items-center gap-3 bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 hover:border-blue-200 px-8 py-4 rounded-full transition-all duration-300 shadow-sm hover:shadow-md"
+            >
+              <span className="font-medium">{t('viewAll')}</span>
+              <span className="text-sm text-gray-500 bg-gray-100 group-hover:bg-blue-100 group-hover:text-blue-600 px-2.5 py-0.5 rounded-full transition-colors">
+                {allProjects.length}
+              </span>
+              <svg
+                className="w-4 h-4 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Projects Modal */}
@@ -204,4 +191,4 @@ export default function WorkSection() {
       />
     </>
   )
-} 
+}

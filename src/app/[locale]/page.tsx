@@ -35,7 +35,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <main className="min-h-screen pt-20">
+    <main className="min-h-screen">
       <HeroSection />
       <AboutSection />
       <WorkSection />
